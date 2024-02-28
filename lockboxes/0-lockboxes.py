@@ -11,9 +11,7 @@ def canUnlockAll(box_list):
             bool_list.append(True)
         else:
             bool_list.append(False)
-    
-    all_except_last = bool_list[:-1]
-    
+    all_except_last = bool_list[:-1]   
     for boolean in all_except_last:
         if(all(all_except_last) == True):
             return True
