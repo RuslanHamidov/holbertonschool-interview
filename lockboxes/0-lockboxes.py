@@ -6,7 +6,7 @@ Lockboxes algorithm
 
 
 
-def boxCheck(box_list):
+def canUnlockAll(box_list):
     bool_list = []
     for array in box_list:
         if (len(array)):
