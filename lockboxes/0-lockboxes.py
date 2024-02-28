@@ -4,6 +4,8 @@
 Lockboxes algorithm
 '''
 
+boxes = [[4, 6], [2], [0, 4, 1], [3], [4], [4, 1], [5, 6]]
+
 def canUnlockAll(box_list):
     bool_list = []
     for array in box_list:
@@ -11,9 +13,6 @@ def canUnlockAll(box_list):
             bool_list.append(True)
         else:
             bool_list.append(False)
-    all_except_last = bool_list[:-1]   
+    all_except_last = bool_list[:-1]
     for boolean in all_except_last:
-        if(all(all_except_last) == True):
-            return True
-        else:
-            return False
+        return all(all_except_last) == True
