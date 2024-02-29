@@ -11,7 +11,7 @@ def canUnlockAll(boxes):
     for lists in boxes:
         for elements in lists:
             index_counter = 0
-            for index_counter in range(1, len(boxes)):  
+            for index_counter in range(1, len(boxes)):
                 if elements == index_counter:
                     box_open.append('opened')
                     break
