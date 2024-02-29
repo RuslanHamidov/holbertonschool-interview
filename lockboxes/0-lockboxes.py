@@ -16,9 +16,9 @@ def canUnlockAll(boxes):
                     break
 
     if(len(box_open) == len(boxes)-1):
-        print(True)
+        return True
     else:
-        print(False)
+        return False
 
-boxes = [[5], [4], [1], [2], []]
 
+boxes = [[1], [2], [3], [4], []]
