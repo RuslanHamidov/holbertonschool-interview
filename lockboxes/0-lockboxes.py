@@ -6,9 +6,12 @@ Lockboxes algorithm
 
 
 def canUnlockAll(boxes):
-  box_open = set()
-  for i, box in enumerate(boxes):
-    if any(i in inner_box for inner_box in boxes[:i] + boxes[i+1:]):
-      box_open.add(i)
-  return len(box_open) == len(boxes)
+  unlocked = [False] * len(boxes)  # Initialize a list to track unlocked boxes
+  unlocked[0] = True  # Mark the first box as unlocked
 
+  for i, box_keys in enumerate(boxes):
+    for key in box_keys:
+      if 0 <= key < len(boxes) and not unlocked[key]:  # Check key validity and unlocked status
+        unlocked[key] = True
+
+  return all(unlocked)
