@@ -20,3 +20,6 @@ def canUnlockAll(boxes):
         return True
     else:
         return False
+
+boxes = [[4, 6], [2], [0, 4, 1], [3], [], [4, 1], [5, 6]]
+print(canUnlockAll(boxes))
