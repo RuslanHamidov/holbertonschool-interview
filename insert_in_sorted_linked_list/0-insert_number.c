@@ -3,12 +3,11 @@
 
 listint_t *insert_node(listint_t **head, const int n)
 {
-    listint_t *new;
+    listint_t *new = malloc(sizeof(listint_t));;
     listint_t *current;
-
+    listint_t *prev = NULL;
     current = *head;
 
-    new = malloc(sizeof(listint_t));
     if (new == NULL)
         return (NULL);
 
