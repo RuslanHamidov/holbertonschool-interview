@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include "lists.h"
 
-listint_t *insert_node(listint_t **head, int n)
+listint_t *insert_node(listint_t **head, int num)
 {
     listint_t *current;
     listint_t *new_node;
@@ -14,17 +14,17 @@ listint_t *insert_node(listint_t **head, int n)
     if (new_node == NULL)
         return (NULL);
 
-    new_node->n = n;
+    new_node->n = num;
     new_node->next = NULL;
 
-    if (*head == NULL || (*head)->n >= n){
+    if (*head == NULL || (*head)->n >= num){
         new_node->next = *head
         *head = new_node;
         return (new_node);
     }
 
     
-    while (current && current->n < n) {
+    while (current && current->n < num) {
         prev = current;
         current = current->next;
     }
