@@ -1,3 +1,7 @@
+#include <stdlib.h>
+#include "binary_trees.h"
+
+
 static void _binary_tree_delete(binary_tree_t *tree)
 {
     if (tree)
