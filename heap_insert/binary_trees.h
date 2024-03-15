@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #ifndef BINARY_TREES__H
 #define BINARY_TREES__H
 
@@ -29,3 +30,12 @@ binary_tree_t *binary_tree_node(binary_tree_t *parent, int value);
 heap_t *heap_insert(heap_t **root, int value);
 
 #endif /* BINARY_TREES__H */
+=======
+struct binary_tree_s
+{
+    int n;
+    struct binary_tree_s *parent;
+    struct binary_tree_s *left;
+    struct binary_tree_s *right;
+};
+>>>>>>> 0087c52c45eef4c9e006fa13908231e7df47455e
