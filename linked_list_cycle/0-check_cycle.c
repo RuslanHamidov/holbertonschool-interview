@@ -1,25 +1,18 @@
-#ifndef LISTS_H
-#define LISTS_H
+#include "lists.h"
+#include <stdio.h>
 
-#include <stdlib.h>
-
-/**
- * struct listint_s - singly linked list
- * @n: integer
- * @next: points to the next node
- *
- * Description: singly linked list node structure
- * for Holberton project
- */
-typedef struct listint_s
+int check_cycle(listint_t* list)
 {
-    int n;
-    struct listint_s* next;
-} listint_t;
+    listint_t* fast;
+    listint_t* slow;
 
-size_t print_listint(const listint_t* h);
-listint_t* add_nodeint(listint_t** head, const int n);
-void free_listint(listint_t* head);
-int check_cycle(listint_t* list);
-
-#endif /* LISTS_H */
+    fast = slow = list;
+    while (fast && slow && fast->next)
+    {
+        fast = fast->next->next;
+        slow = slow->next;
+        if (fast == slow)
+            return (1);
+    }
+    return (0);
+}
