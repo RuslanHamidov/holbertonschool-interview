@@ -1,25 +1,34 @@
 #!/usr/bin/node
 
+/*
+Get characters from Star Wars Movie
+*/
+
+const URL = 'https://swapi-api.hbtn.io/api/';
 const request = require('request');
-const arg = process.argv[2];
-const url = `https://swapi-api.hbtn.io/api/films/${arg}`;
+const idMovie = process.argv[2];
 
-const charNames = (characters, i = 0) => {
-  if (i === characters.length) return;
-  request(characters[i], (error, response, body) => {
-    if (error) throw error;
-    // Convert a string of characters JSON to a JavaScript object and print it
-    console.log(JSON.parse(body).name);
-    // Call recursively the function charNames and increment it to pass to the next character
-    charNames(characters, i + 1);
+async function getRequest (url) {
+  return new Promise(function (resolve, reject) {
+    request.get(url, function (err, resp, body) {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(JSON.parse(body));
+      }
+    });
   });
-};
+}
 
-// Request to the API to recover movie information
-request(url, function (error, response, body) {
-  if (error) throw error;
-  // Extract URL of characters from the body JSON response and store it in a var char
-  const char = JSON.parse(body).characters;
-  // Call the function charNames to print the characters
-  charNames(char);
+(async () => {
+  return getRequest(URL + 'films/' + idMovie);
+})().then(async (movie) => {
+  if (movie.detail !== 'Not found') {
+    for (const ch of movie.characters) {
+      const character = await getRequest(ch);
+      if (character.detail === undefined) {
+        console.log(character.name);
+      }
+    }
+  }
 });
