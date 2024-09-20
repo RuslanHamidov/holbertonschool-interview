@@ -1,72 +1,54 @@
 #include "sort.h"
-#include <stdio.h>
-#include <stdlib.h>
-
 /**
- * getMax - A utility function to get the maximum value in an array
- * @array: The array to be examined
- * @size: Number of elements in the array
- *
- * Return: The maximum value in the array
+ * current_digit_sort - sort by current digit
+ * @array: array to sort
+ * @size: array's size
+ * @tmp: temporal array
+ * @exp: actual exponent digit
+ * Return: array sort
  */
-int getMax(int *array, size_t size)
+int current_digit_sort(int *array, ssize_t size, int *tmp, long exp)
 {
-	int max = array[0];
-	size_t i;
-
-	for (i = 1; i < size; i++)
-		if (array[i] > max)
-			max = array[i];
-	return (max);
-}
-
-/**
- * countSort - A function to do counting sort of array according to
- * the digit represented by exp
- * @array: The array to be sorted
- * @size: Number of elements in the array
- * @exp: Exponent representing the current digit position
- */
-void countSort(int *array, size_t size, int exp)
-{
-	int *output = malloc(size * sizeof(int));
-	int count[10] = {0};
-	size_t i;
-	int j;
+	ssize_t i;
+	int aux[10] = {0};
 
 	for (i = 0; i < size; i++)
-		count[(array[i] / exp) % 10]++;
-
-	for (j = 1; j < 10; j++)
-		count[j] += count[j - 1];
-
-	/* Build the output array */
-	for (i = size; i > 0; i--)
-	{
-		output[count[(array[i - 1] / exp) % 10] - 1] = array[i - 1];
-		count[(array[i - 1] / exp) % 10]--;
-	}
-
+		aux[(array[i] / exp) % 10]++, tmp[i] = 0;
+	for (i = 1; i < 10; i++)
+		aux[i] += aux[i - 1];
+	for (i = size - 1; i >= 0; i--)
+		tmp[--aux[(array[i] / exp) % 10]] = array[i];
 	for (i = 0; i < size; i++)
-		array[i] = output[i];
-
-	free(output);
+		array[i] = tmp[i];
+	return (0);
 }
-
 /**
- * radix_sort - Sorts an array of integers in ascending order using the
- * Radix sort algorithm
- * @array: The array to be sorted
- * @size: Number of elements in the array
+ * radix_sort - sorts by RADIX
+ * @array: array to sort
+ * @size: size of array
+ * Return: nothing
  */
 void radix_sort(int *array, size_t size)
 {
-	int max = getMax(array, size);
-	int exp;
+	size_t i;
+	long exp = 1;
+	int *tmp, max = INT_MIN;
 
-	for (exp = 1; max / exp > 0; exp *= 10)
+	if (!array || size < 2)
+		return;
+
+	tmp = malloc(sizeof(int *) * size);
+	if (!tmp)
+		return;
+
+	for (i = 0; i < size; i++)
+		max = array[i] > max ? array[i] : max;
+
+	while (max / exp > 0)
 	{
-		countSort(array, size, exp);
+		current_digit_sort(array, size, tmp, exp);
 		print_array(array, size);
+		exp *= 10;
 	}
+	free(tmp);
 }
